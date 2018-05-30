@@ -14,6 +14,8 @@
 
 package plugins
 
+import "log"
+
 type Plugin struct {
 	FilePath string
 	MTime    int64
@@ -29,13 +31,16 @@ func DelNoUsePlugins(newPlugins map[string]*Plugin) {
 	for currKey, currPlugin := range Plugins {
 		newPlugin, ok := newPlugins[currKey]
 		if !ok || currPlugin.MTime != newPlugin.MTime {
+			log.Println("delete plugin: %s", currKey)
 			deletePlugin(currKey)
 		}
 	}
 }
 
 func AddNewPlugins(newPlugins map[string]*Plugin) {
+	log.Println("add new plugin")
 	for fpath, newPlugin := range newPlugins {
+		log.Println(fpath, newPlugin)
 		if _, ok := Plugins[fpath]; ok && newPlugin.MTime == Plugins[fpath].MTime {
 			continue
 		}
