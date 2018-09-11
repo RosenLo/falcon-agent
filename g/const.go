@@ -1,3 +1,5 @@
+// Copyright 2018 RosenLo
+
 // Copyright 2017 Xiaomi, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +13,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+/**
+ * This code was originally worte by Xiaomi, Inc. modified by RosenLo.
+**/
 
 package g
 
@@ -26,7 +32,8 @@ import (
 // 5.1.1: 修复往多个transfer发送数据的时候crash的问题
 // 5.1.2: ignore mount point when blocks=0
 const (
-	VERSION          = "5.1.2"
+	OFFCIAL_VERSION  = "5.1.2"
+	VERSION          = "1.0.0"
 	COLLECT_INTERVAL = time.Second
 	URL_CHECK_HEALTH = "url.check.health"
 	NET_PORT_LISTEN  = "net.port.listen"
