@@ -1,3 +1,5 @@
+// Copyright 2018 RosenLo
+
 // Copyright 2017 Xiaomi, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +14,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * This code was originally worte by Xiaomi, Inc. modified by RosenLo.
+**/
+
 package cron
 
 import (
-	"github.com/open-falcon/falcon-plus/common/model"
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/open-falcon/falcon-plus/modules/agent/plugins"
 	"log"
 	"strings"
 	"time"
+
+	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/open-falcon/falcon-plus/modules/agent/g"
+	"github.com/open-falcon/falcon-plus/modules/agent/plugins"
 )
 
 func SyncMinePlugins() {
