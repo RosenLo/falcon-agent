@@ -31,4 +31,4 @@ I use [linux-dash](https://github.com/afaqurk/linux-dash) as the page theme.
 
 # Auto deployment
 
-Just look at https://github.com/open-falcon/ops-updater
+Just look at https://github.com/RosenLo/ops-updater
