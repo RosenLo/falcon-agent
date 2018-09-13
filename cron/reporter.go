@@ -1,3 +1,5 @@
+// Copyright 2018 RosenLo
+
 // Copyright 2017 Xiaomi, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +14,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * This code was originally worte by Xiaomi, Inc. modified by RosenLo.
+**/
+
 package cron
 
 import (
 	"fmt"
-	"github.com/open-falcon/falcon-plus/common/model"
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
 	"log"
 	"time"
+
+	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/open-falcon/falcon-plus/modules/agent/g"
 )
 
 func ReportAgentStatus() {
@@ -30,6 +37,8 @@ func ReportAgentStatus() {
 
 func reportAgentStatus(interval time.Duration) {
 	for {
+		time.Sleep(interval)
+
 		hostname, err := g.Hostname()
 		if err != nil {
 			hostname = fmt.Sprintf("error:%s", err.Error())
@@ -47,7 +56,5 @@ func reportAgentStatus(interval time.Duration) {
 		if err != nil || resp.Code != 0 {
 			log.Println("call Agent.ReportStatus fail:", err, "Request:", req, "Response:", resp)
 		}
-
-		time.Sleep(interval)
 	}
 }
