@@ -15,11 +15,12 @@
 package http
 
 import (
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/toolkits/file"
 	"net/http"
 	"path/filepath"
 	"strings"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/toolkits/file"
 )
 
 func configPageRoutes() {

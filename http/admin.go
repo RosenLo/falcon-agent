@@ -15,11 +15,12 @@
 package http
 
 import (
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/toolkits/file"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/toolkits/file"
 )
 
 func configAdminRoutes() {

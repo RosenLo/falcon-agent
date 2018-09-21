@@ -17,11 +17,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/open-falcon/falcon-plus/modules/agent/cron"
-	"github.com/open-falcon/falcon-plus/modules/agent/funcs"
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/open-falcon/falcon-plus/modules/agent/http"
 	"os"
+
+	"github.com/RosenLo/falcon-agent/cron"
+	"github.com/RosenLo/falcon-agent/funcs"
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/RosenLo/falcon-agent/http"
 )
 
 func main() {

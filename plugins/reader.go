@@ -15,13 +15,14 @@
 package plugins
 
 import (
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/toolkits/file"
 	"io/ioutil"
 	"log"
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/toolkits/file"
 )
 
 // key: sys/ntp/60_ntp.py

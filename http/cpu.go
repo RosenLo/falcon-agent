@@ -16,10 +16,11 @@ package http
 
 import (
 	"fmt"
-	"github.com/open-falcon/falcon-plus/modules/agent/funcs"
-	"github.com/toolkits/nux"
 	"net/http"
 	"runtime"
+
+	"github.com/RosenLo/falcon-agent/funcs"
+	"github.com/toolkits/nux"
 )
 
 func configCpuRoutes() {

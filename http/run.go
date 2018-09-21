@@ -15,10 +15,11 @@
 package http
 
 import (
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/toolkits/sys"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/toolkits/sys"
 )
 
 func configRunRoutes() {

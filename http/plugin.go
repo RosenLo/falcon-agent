@@ -16,11 +16,12 @@ package http
 
 import (
 	"fmt"
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/open-falcon/falcon-plus/modules/agent/plugins"
-	"github.com/toolkits/file"
 	"net/http"
 	"os/exec"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/RosenLo/falcon-agent/plugins"
+	"github.com/toolkits/file"
 )
 
 func configPluginRoutes() {

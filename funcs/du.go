@@ -15,12 +15,13 @@
 package funcs
 
 import (
-	"github.com/open-falcon/falcon-plus/common/model"
-	"github.com/open-falcon/falcon-plus/modules/agent/g"
-	"github.com/toolkits/sys"
 	"log"
 	"strconv"
 	"strings"
+
+	"github.com/RosenLo/falcon-agent/g"
+	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/toolkits/sys"
 )
 
 func DuMetrics() (L []*model.MetricValue) {
