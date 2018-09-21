@@ -1,4 +1,10 @@
 
+## 1.1.0 (2018-09-13)
+
+### Changed
+- delayed reporting status after startup e6316a75
+
+
 ## 1.0.0 (2018-08-29)
 
 ### Changed
