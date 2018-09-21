@@ -29,6 +29,11 @@ I use [linux-dash](https://github.com/afaqurk/linux-dash) as the page theme.
 - transfer: transfer rpc address
 - ignore: the metrics should ignore
 
-# Auto deployment
+## Auto deployment
 
 Just look at https://github.com/RosenLo/ops-updater
+
+## Changes
+
+- feature improvement to obtain local ip
+- delayed reporting status after startup
