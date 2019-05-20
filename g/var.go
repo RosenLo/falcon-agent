@@ -22,13 +22,19 @@ package g
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net"
 	"os"
+	"os/exec"
+	"regexp"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
 
+	"github.com/RosenLo/toolkits/file"
+	"github.com/RosenLo/toolkits/str"
 	"github.com/open-falcon/falcon-plus/common/model"
 	"github.com/toolkits/slice"
 )
@@ -218,4 +224,131 @@ func IsTrustable(remoteAddr string) bool {
 	}
 
 	return slice.ContainsString(TrustableIps(), ip)
+}
+
+var (
+	HostInfo map[string]interface{}
+)
+
+func OSBit() string {
+	cmd := exec.Command("uname", "-i")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		log.Println("get os bit failed, due to: ", err)
+	}
+	return out.String()
+}
+
+func getRedhatishVersion(contents []string) string {
+	c := strings.ToLower(strings.Join(contents, ""))
+
+	if strings.Contains(c, "rawhide") {
+		return "rawhide"
+	}
+	if matches := regexp.MustCompile(`release (\d[\d.]*)`).FindStringSubmatch(c); matches != nil {
+		return matches[1]
+	}
+	return ""
+}
+
+func getRedhatishPlatform(contents []string) string {
+	c := strings.ToLower(strings.Join(contents, ""))
+
+	if strings.Contains(c, "red hat") {
+		return "redhat"
+	}
+	f := strings.Split(c, " ")
+
+	return f[0]
+}
+
+func getLSB(content []string) (string, string) {
+	var platformName, platformVersion string
+	for _, line := range content {
+		fileds := strings.Split(line, "=")
+		if len(fileds) < 2 {
+			continue
+		}
+		switch fileds[0] {
+		case "DISTRIB_ID":
+			platformName = fileds[1]
+		case "DISTRIB_RELEASE":
+			platformVersion = fileds[1]
+		}
+	}
+	return platformName, platformVersion
+}
+
+func PlatformInfo() (string, string, string) {
+	var platformName, platformVersion string
+	platformType := "1" // Linux
+	prefix := "/etc/"
+	linuxRelease := str.Concatenate(prefix, "system-release")
+	ubuntuRelease := str.Concatenate(prefix, "lsb-release")
+	if file.IsExist(linuxRelease) {
+		c, err := file.ReadLines(linuxRelease)
+		if err == nil {
+			platformVersion = getRedhatishVersion(c)
+			platformName = getRedhatishPlatform(c)
+		}
+	} else if file.IsExist(ubuntuRelease) {
+		c, err := file.ReadLines(ubuntuRelease)
+		if err == nil {
+			platformName, platformVersion = getLSB(c)
+		}
+	}
+	return platformType, platformName, platformVersion
+}
+
+func CPUInfo() (string, string, string) {
+	var mhz, module string
+	hostType := "1" // virutal
+	filename := "/proc/cpuinfo"
+	lines, err := file.ReadLines(filename)
+	if err == nil {
+		for _, line := range lines {
+			fields := strings.Split(line, ":")
+			if len(fields) < 2 {
+				continue
+			}
+			switch strings.TrimSpace(fields[0]) {
+			case "flags":
+				if !strings.Contains(fields[1], "hypervisor") {
+					hostType = "2" // physical
+				}
+			case "model name":
+				module = fields[1]
+			case "cpu MHz":
+				mhz = fields[1]
+			}
+			if mhz != "" && module != "" && hostType != "" {
+				break
+			}
+		}
+	}
+	return mhz, module, hostType
+}
+
+func InitHostInfo() {
+	hostname, err := Hostname()
+	if err != nil {
+		hostname = fmt.Sprintf("error:%s", err.Error())
+	}
+	platformType, platformName, platformVersion := PlatformInfo()
+	cpuMhz, cpuModule, hostType := CPUInfo()
+	HostInfo = map[string]interface{}{
+		"bk_host_name":    hostname,
+		"bk_host_innerip": IP(),
+		"import_from":     "2", // from agent
+		"bk_cpu":          runtime.NumCPU(),
+		"bk_mhz":          cpuMhz,
+		"bk_module":       cpuModule,
+		"host_type":       hostType,
+		"bk_os_bit":       OSBit(),
+		"bk_os_type":      platformType,
+		"bk_os_name":      platformName,
+		"bk_os_version":   platformVersion,
+	}
 }
