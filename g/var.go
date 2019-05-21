@@ -29,6 +29,7 @@ import (
 	"os/exec"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -302,8 +303,9 @@ func PlatformInfo() (string, string, string) {
 	return platformType, platformName, platformVersion
 }
 
-func CPUInfo() (string, string, string) {
-	var mhz, module string
+func CPUInfo() (int, string, string) {
+	var module string
+	var mhz int
 	hostType := "1" // virutal
 	filename := "/proc/cpuinfo"
 	lines, err := file.ReadLines(filename)
@@ -321,9 +323,16 @@ func CPUInfo() (string, string, string) {
 			case "model name":
 				module = fields[1]
 			case "cpu MHz":
-				mhz = fields[1]
+				_fields := strings.Split(fields[1], ".")
+				if len(_fields) > 0 {
+					mhz, err = strconv.Atoi(strings.TrimSpace(_fields[0]))
+					if err != nil {
+						log.Println(err)
+						mhz = 1
+					}
+				}
 			}
-			if mhz != "" && module != "" && hostType != "" {
+			if mhz != 0 && module != "" && hostType != "" {
 				break
 			}
 		}
@@ -340,15 +349,14 @@ func InitHostInfo() {
 	cpuMhz, cpuModule, hostType := CPUInfo()
 	HostInfo = map[string]interface{}{
 		"bk_host_name":    hostname,
-		"bk_host_innerip": IP(),
-		"import_from":     "2", // from agent
-		"bk_cpu":          runtime.NumCPU(),
-		"bk_mhz":          cpuMhz,
-		"bk_module":       cpuModule,
-		"host_type":       hostType,
-		"bk_os_bit":       OSBit(),
-		"bk_os_type":      platformType,
-		"bk_os_name":      platformName,
-		"bk_os_version":   platformVersion,
+		"bk_host_innerip": IP(), "import_from": "2", // from agent
+		"bk_cpu":        runtime.NumCPU(),
+		"bk_cpu_mhz":    cpuMhz,
+		"bk_cpu_module": cpuModule,
+		"host_type":     hostType,
+		"bk_os_bit":     OSBit(),
+		"bk_os_type":    platformType,
+		"bk_os_name":    platformName,
+		"bk_os_version": platformVersion,
 	}
 }

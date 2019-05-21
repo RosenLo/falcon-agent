@@ -1,4 +1,4 @@
-// Copyright 2018 RosenLo
+// Copyright 2018-2019 RosenLo
 
 // Copyright 2017 Xiaomi, Inc.
 //
