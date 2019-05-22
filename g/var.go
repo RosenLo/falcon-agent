@@ -28,13 +28,12 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
-	"runtime"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/RosenLo/toolkits/file"
+	"github.com/RosenLo/toolkits/gnu"
 	"github.com/RosenLo/toolkits/str"
 	"github.com/open-falcon/falcon-plus/common/model"
 	"github.com/toolkits/slice"
@@ -303,41 +302,36 @@ func PlatformInfo() (string, string, string) {
 	return platformType, platformName, platformVersion
 }
 
-func CPUInfo() (int, string, string) {
+func CPUInfo() (int, int, string, string) {
+	var num, mhz int
 	var module string
-	var mhz int
-	hostType := "1" // virutal
-	filename := "/proc/cpuinfo"
-	lines, err := file.ReadLines(filename)
+	hostType := "1" // virtual
+	cpu, err := gnu.CpuInfo()
 	if err == nil {
-		for _, line := range lines {
-			fields := strings.Split(line, ":")
-			if len(fields) < 2 {
-				continue
-			}
-			switch strings.TrimSpace(fields[0]) {
-			case "flags":
-				if !strings.Contains(fields[1], "hypervisor") {
-					hostType = "2" // physical
-				}
-			case "model name":
-				module = fields[1]
-			case "cpu MHz":
-				_fields := strings.Split(fields[1], ".")
-				if len(_fields) > 0 {
-					mhz, err = strconv.Atoi(strings.TrimSpace(_fields[0]))
-					if err != nil {
-						log.Println(err)
-						mhz = 1
-					}
-				}
-			}
-			if mhz != 0 && module != "" && hostType != "" {
-				break
-			}
+		mhz = cpu.MHz
+		num = cpu.Num
+		module = cpu.Module
+		if !cpu.Virtual {
+			hostType = "2"
 		}
 	}
-	return mhz, module, hostType
+	return num, mhz, module, hostType
+}
+
+func MemTotal() uint64 {
+	mem, err := gnu.MemInfo()
+	if err != nil {
+		return uint64(1)
+	}
+	return mem.MemTotal / 1000 / 1000
+}
+
+func DiskTotal() uint64 {
+	mem, err := gnu.MemInfo()
+	if err != nil {
+		return uint64(1)
+	}
+	return mem.MemTotal
 }
 
 func InitHostInfo() {
@@ -346,11 +340,11 @@ func InitHostInfo() {
 		hostname = fmt.Sprintf("error:%s", err.Error())
 	}
 	platformType, platformName, platformVersion := PlatformInfo()
-	cpuMhz, cpuModule, hostType := CPUInfo()
+	cpuNum, cpuMhz, cpuModule, hostType := CPUInfo()
 	HostInfo = map[string]interface{}{
 		"bk_host_name":    hostname,
 		"bk_host_innerip": IP(), "import_from": "2", // from agent
-		"bk_cpu":        runtime.NumCPU(),
+		"bk_cpu":        cpuNum,
 		"bk_cpu_mhz":    cpuMhz,
 		"bk_cpu_module": cpuModule,
 		"host_type":     hostType,
@@ -358,5 +352,6 @@ func InitHostInfo() {
 		"bk_os_type":    platformType,
 		"bk_os_name":    platformName,
 		"bk_os_version": platformVersion,
+		"bk_mem":        MemTotal(),
 	}
 }
