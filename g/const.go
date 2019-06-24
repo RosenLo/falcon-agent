@@ -33,7 +33,7 @@ import (
 // 5.1.2: ignore mount point when blocks=0
 const (
 	OFFCIAL_VERSION  = "5.1.2"
-	VERSION          = "1.0.0"
+	VERSION          = "1.1.0"
 	COLLECT_INTERVAL = time.Second
 	URL_CHECK_HEALTH = "url.check.health"
 	NET_PORT_LISTEN  = "net.port.listen"

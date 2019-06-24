@@ -342,16 +342,18 @@ func InitHostInfo() {
 	platformType, platformName, platformVersion := PlatformInfo()
 	cpuNum, cpuMhz, cpuModule, hostType := CPUInfo()
 	HostInfo = map[string]interface{}{
-		"bk_host_name":    hostname,
-		"bk_host_innerip": IP(), "import_from": "2", // from agent
-		"bk_cpu":        cpuNum,
-		"bk_cpu_mhz":    cpuMhz,
-		"bk_cpu_module": cpuModule,
-		"host_type":     hostType,
-		"bk_os_bit":     OSBit(),
-		"bk_os_type":    platformType,
-		"bk_os_name":    platformName,
-		"bk_os_version": platformVersion,
-		"bk_mem":        MemTotal(),
+		"bk_host_name":         hostname,
+		"bk_host_innerip":      IP(),
+		"import_from":          "2", // from agent
+		"bk_cpu":               cpuNum,
+		"bk_cpu_mhz":           cpuMhz,
+		"bk_cpu_module":        cpuModule,
+		"host_type":            hostType,
+		"bk_os_bit":            OSBit(),
+		"bk_os_type":           platformType,
+		"bk_os_name":           platformName,
+		"bk_os_version":        platformVersion,
+		"bk_mem":               MemTotal(),
+		"falcon_agent_version": VERSION,
 	}
 }
