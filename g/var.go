@@ -307,13 +307,14 @@ func CPUInfo() (int, int, string, string) {
 	var module string
 	hostType := "1" // virtual
 	cpu, err := gnu.CpuInfo()
-	if err == nil {
-		mhz = cpu.MHz
-		num = cpu.Num
-		module = cpu.Module
-		if !cpu.Virtual {
-			hostType = "2"
-		}
+	if err != nil {
+		log.Println("get cpu info failed, due to: ", err)
+	}
+	mhz = cpu.MHz
+	num = cpu.Num
+	module = cpu.Module
+	if !cpu.Virtual {
+		hostType = "2"
 	}
 	return num, mhz, module, hostType
 }
@@ -355,5 +356,6 @@ func InitHostInfo() {
 		"bk_os_version":        platformVersion,
 		"bk_mem":               MemTotal(),
 		"falcon_agent_version": VERSION,
+		"online":               true,
 	}
 }
