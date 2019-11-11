@@ -15,8 +15,8 @@
 package funcs
 
 import (
-	"github.com/RosenLo/falcon-agent/g"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/falcon-agent/g"
 )
 
 type FuncsAndInterval struct {

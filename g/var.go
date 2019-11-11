@@ -1,4 +1,4 @@
-// Copyright 2018 RosenLo
+// Copyright 2018 rosenlo
 
 // Copyright 2017 Xiaomi, Inc.
 //
@@ -15,7 +15,7 @@
 // limitations under the License.
 
 /**
- * This code was originally worte by Xiaomi, Inc. modified by RosenLo.
+ * This code was originally worte by Xiaomi, Inc. modified by rosenlo.
 **/
 
 package g
@@ -32,10 +32,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RosenLo/toolkits/file"
-	"github.com/RosenLo/toolkits/gnu"
-	"github.com/RosenLo/toolkits/str"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/toolkits/file"
+	"github.com/rosenlo/toolkits/gnu"
+	"github.com/rosenlo/toolkits/str"
 	"github.com/toolkits/slice"
 )
 
@@ -358,4 +358,7 @@ func InitHostInfo() {
 		"falcon_agent_version": VERSION,
 		"online":               true,
 	}
+}
+
+func InitDefaultTags() {
 }

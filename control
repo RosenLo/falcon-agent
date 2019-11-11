@@ -68,7 +68,6 @@ function build() {
     if [ $? -ne 0 ]; then
         exit $?
     fi
-    mv $module $app
 }
 
 function pack() {
@@ -76,13 +75,13 @@ function pack() {
     git log -1 --pretty=%h > gitversion
     file_list="control cfg.json $app"
     echo "...tar $app.tar.gz <= $file_list"
-    tar zcf $app.tar.gz gitversion $file_list
+    tar zcf $app.tar.gz $file_list
 }
 
 function packbin() {
     build
     git log -1 --pretty=%h > gitversion
-    tar zcvf $app-bin.tar.gz $app gitversion
+    tar zcvf $app-bin.tar.gz $app
 }
 
 function help() {

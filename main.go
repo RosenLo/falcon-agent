@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/RosenLo/falcon-agent/cron"
-	"github.com/RosenLo/falcon-agent/funcs"
-	"github.com/RosenLo/falcon-agent/g"
-	"github.com/RosenLo/falcon-agent/http"
+	"github.com/rosenlo/falcon-agent/cron"
+	"github.com/rosenlo/falcon-agent/funcs"
+	"github.com/rosenlo/falcon-agent/g"
+	"github.com/rosenlo/falcon-agent/http"
 )
 
 func main() {

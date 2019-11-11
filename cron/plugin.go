@@ -1,4 +1,4 @@
-// Copyright 2018 RosenLo
+// Copyright 2018 rosenlo
 
 // Copyright 2017 Xiaomi, Inc.
 //
@@ -15,7 +15,7 @@
 // limitations under the License.
 
 /**
- * This code was originally worte by Xiaomi, Inc. modified by RosenLo.
+ * This code was originally worte by Xiaomi, Inc. modified by rosenlo.
 **/
 
 package cron
@@ -25,9 +25,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RosenLo/falcon-agent/g"
-	"github.com/RosenLo/falcon-agent/plugins"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/falcon-agent/g"
+	"github.com/rosenlo/falcon-agent/plugins"
 )
 
 func SyncMinePlugins() {

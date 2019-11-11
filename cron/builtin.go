@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RosenLo/falcon-agent/g"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/falcon-agent/g"
 )
 
 func SyncBuiltinMetrics() {

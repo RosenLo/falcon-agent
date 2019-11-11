@@ -18,7 +18,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/RosenLo/falcon-agent/g"
+	"github.com/rosenlo/falcon-agent/g"
 	"github.com/toolkits/sys"
 )
 

@@ -17,8 +17,8 @@ package funcs
 import (
 	"log"
 
-	"github.com/RosenLo/falcon-agent/g"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/falcon-agent/g"
 	"github.com/toolkits/nux"
 )
 

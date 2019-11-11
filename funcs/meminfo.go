@@ -17,8 +17,8 @@ package funcs
 import (
 	"log"
 
-	"github.com/RosenLo/toolkits/gnu"
 	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/rosenlo/toolkits/gnu"
 )
 
 func MemMetrics() []*model.MetricValue {
