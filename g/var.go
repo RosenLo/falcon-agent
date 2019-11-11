@@ -361,4 +361,15 @@ func InitHostInfo() {
 }
 
 func InitDefaultTags() {
+	var chain string
+	service, route, status := GetConsulInfo()
+	_route := strings.Split(route, "_")
+	if len(_route) == 2 {
+		chain = _route[1]
+	} else {
+		chain = route
+	}
+	config.DefaultTags["service"] = service
+	config.DefaultTags["chain"] = chain
+	config.DefaultTags["status"] = status
 }
