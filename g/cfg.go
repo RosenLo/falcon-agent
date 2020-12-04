@@ -105,6 +105,7 @@ func IP() string {
 		return ip
 	}
 
+	InitLocalIp()
 	if len(LocalIp) > 0 {
 		ip = LocalIp
 	}

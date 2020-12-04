@@ -55,7 +55,7 @@ func InitLocalIp() {
 	if Config().Heartbeat.Enabled {
 		conn, err := net.DialTimeout("udp", "114.114.114.114:53", time.Second*10)
 		if err != nil {
-			log.Println("get local addr failed, due to: %s", err)
+			log.Printf("get local addr failed, due to: %s\n", err)
 		} else {
 			defer conn.Close()
 			LocalIp = strings.Split(conn.LocalAddr().String(), ":")[0]
@@ -358,18 +358,4 @@ func InitHostInfo() {
 		"falcon_agent_version": VERSION,
 		"online":               true,
 	}
-}
-
-func InitDefaultTags() {
-	var chain string
-	service, route, status := GetConsulInfo()
-	_route := strings.Split(route, "_")
-	if len(_route) == 2 {
-		chain = _route[1]
-	} else {
-		chain = route
-	}
-	config.DefaultTags["service"] = service
-	config.DefaultTags["chain"] = chain
-	config.DefaultTags["status"] = status
 }
