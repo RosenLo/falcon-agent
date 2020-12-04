@@ -16,11 +16,12 @@ package funcs
 
 import (
 	"fmt"
-	"github.com/open-falcon/falcon-plus/common/model"
-	"github.com/toolkits/nux"
 	"log"
 	"strings"
 	"sync"
+
+	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/toolkits/nux"
 )
 
 var (
@@ -166,6 +167,7 @@ func IOStatsMetrics() (L []*model.MetricValue) {
 		L = append(L, GaugeValue("disk.io.svctm", svctm, tags))
 		tmp := float64(use) * 100.0 / float64(duration)
 		if tmp > 100.0 {
+			log.Printf("disk.io.util: %v, duration: %v, use: %v\n", tmp, duration, use)
 			tmp = 100.0
 		}
 		L = append(L, GaugeValue("disk.io.util", tmp, tags))
@@ -226,5 +228,6 @@ func ShouldHandleDevice(device string) bool {
 	normal := len(device) == 3 && (strings.HasPrefix(device, "sd") || strings.HasPrefix(device, "vd"))
 	aws := len(device) >= 4 && strings.HasPrefix(device, "xvd")
 	flash := len(device) >= 4 && strings.HasPrefix(device, "fio")
-	return normal || aws || flash
+	jdcloud := len(device) >= 3 && strings.HasPrefix(device, "md")
+	return normal || aws || flash || jdcloud
 }
