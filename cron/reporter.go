@@ -25,8 +25,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/open-falcon/falcon-plus/common/model"
-	"github.com/rosenlo/falcon-agent/g"
+	"falcon-agent/g"
+	"falcon-agent/model"
 )
 
 func ReportAgentStatus() {
@@ -38,6 +38,7 @@ func ReportAgentStatus() {
 func reportAgentStatus(interval time.Duration) {
 	for {
 		time.Sleep(interval)
+		g.InitHostInfo()
 
 		hostname, err := g.Hostname()
 		if err != nil {

@@ -32,7 +32,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/open-falcon/falcon-plus/common/model"
+	"falcon-agent/model"
+
 	"github.com/rosenlo/toolkits/file"
 	"github.com/rosenlo/toolkits/gnu"
 	"github.com/rosenlo/toolkits/str"

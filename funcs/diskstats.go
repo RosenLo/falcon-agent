@@ -20,7 +20,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/open-falcon/falcon-plus/common/model"
+	"falcon-agent/model"
+
 	"github.com/toolkits/nux"
 )
 
@@ -167,7 +168,7 @@ func IOStatsMetrics() (L []*model.MetricValue) {
 		L = append(L, GaugeValue("disk.io.svctm", svctm, tags))
 		tmp := float64(use) * 100.0 / float64(duration)
 		if tmp > 100.0 {
-			log.Printf("disk.io.util: %v, duration: %v, use: %v\n", tmp, duration, use)
+			log.Printf("disk.io.util: %v, duration: %v, use: %v, diskStatsMap: %v", tmp, duration, use, diskStatsMap[device])
 			tmp = 100.0
 		}
 		L = append(L, GaugeValue("disk.io.util", tmp, tags))

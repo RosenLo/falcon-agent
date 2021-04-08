@@ -12,25 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package funcs
+package model
 
 import (
-	"falcon-agent/model"
-	"log"
-
-	"github.com/toolkits/nux"
+	"fmt"
 )
 
-func SocketStatSummaryMetrics() (L []*model.MetricValue) {
-	ssMap, err := nux.SocketStatSummary()
-	if err != nil {
-		log.Println(err)
-		return
-	}
+type Host struct {
+	Id   int
+	Name string
+	Ip   string
+}
 
-	for k, v := range ssMap {
-		L = append(L, GaugeValue("ss."+k, v))
-	}
-
-	return
+func (this *Host) String() string {
+	return fmt.Sprintf(
+		"<id:%d,name:%s,ip:%s>",
+		this.Id,
+		this.Name,
+		this.Ip,
+	)
 }

@@ -19,8 +19,9 @@ import (
 	"net/http"
 	"os/exec"
 
-	"github.com/rosenlo/falcon-agent/g"
-	"github.com/rosenlo/falcon-agent/plugins"
+	"falcon-agent/g"
+	"falcon-agent/plugins"
+
 	"github.com/toolkits/file"
 )
 

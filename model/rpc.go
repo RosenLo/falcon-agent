@@ -12,25 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package funcs
+package model
 
 import (
-	"falcon-agent/model"
-	"log"
-
-	"github.com/toolkits/nux"
+	"fmt"
 )
 
-func SocketStatSummaryMetrics() (L []*model.MetricValue) {
-	ssMap, err := nux.SocketStatSummary()
-	if err != nil {
-		log.Println(err)
-		return
-	}
+// code == 0 => success
+// code == 1 => bad request
+type SimpleRpcResponse struct {
+	Code int `json:"code"`
+}
 
-	for k, v := range ssMap {
-		L = append(L, GaugeValue("ss."+k, v))
-	}
+func (this *SimpleRpcResponse) String() string {
+	return fmt.Sprintf("<Code: %d>", this.Code)
+}
 
-	return
+type NullRpcRequest struct {
 }

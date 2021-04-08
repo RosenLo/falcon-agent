@@ -19,7 +19,8 @@ import (
 	"net/http"
 	"runtime"
 
-	"github.com/rosenlo/falcon-agent/funcs"
+	"falcon-agent/funcs"
+
 	"github.com/toolkits/nux"
 )
 

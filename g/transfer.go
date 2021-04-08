@@ -20,7 +20,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/open-falcon/falcon-plus/common/model"
+	"falcon-agent/model"
 )
 
 var (

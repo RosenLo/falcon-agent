@@ -15,7 +15,7 @@
 package funcs
 
 import (
-	"github.com/open-falcon/falcon-plus/common/model"
+	"falcon-agent/model"
 	"strings"
 )
 

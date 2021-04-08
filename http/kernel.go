@@ -17,7 +17,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/rosenlo/falcon-agent/g"
+	"falcon-agent/g"
+
 	"github.com/toolkits/nux"
 	"github.com/toolkits/sys"
 )

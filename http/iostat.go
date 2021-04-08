@@ -17,7 +17,7 @@ package http
 import (
 	"net/http"
 
-	"github.com/rosenlo/falcon-agent/funcs"
+	"falcon-agent/funcs"
 )
 
 func configIoStatRoutes() {
